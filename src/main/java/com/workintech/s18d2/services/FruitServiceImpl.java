@@ -1,8 +1,10 @@
 package com.workintech.s18d2.services;
 
 import com.workintech.s18d2.entity.Fruit;
+import com.workintech.s18d2.exceptions.PlantException;
 import com.workintech.s18d2.repository.FruitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,13 +32,22 @@ public class FruitServiceImpl implements FruitService{
     }
 
     @Override
-    public Fruit findById(long id) {
+    public Fruit getById(long id) {
         Optional<Fruit> fruitOptional = fruitRepository.findById(id);
         if(fruitOptional.isPresent()) {
             return fruitOptional.get();
         }
-        //burada exception throw etmeliyiz, null bırakmamalıyız
-        return null;
+        throw new PlantException("Bu ID ile eşleşen bir kayıt bulunamadı!", HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public Fruit delete(long id) {
+        Optional<Fruit> fruitOptional = fruitRepository.findById(id);
+        if(fruitOptional.isPresent()) {
+            fruitRepository.delete(fruitOptional.get());
+            return fruitOptional.get();
+        }
+      throw new PlantException("Bu ID ile eşleşen bir kayıt bulunamadı!", HttpStatus.NOT_FOUND);
     }
 
     //isme göre aratan
@@ -47,13 +58,13 @@ public class FruitServiceImpl implements FruitService{
 
     //artan sıraya göre listeleyen
     @Override
-    public List<Fruit> searchByAscOrder() {
-        return fruitRepository.searchByAscOrder();
+    public List<Fruit> getByPriceAsc() {
+        return fruitRepository.getByPriceAsc();
     }
 
     //azalan sıraya göre listeleyen
     @Override
-    public List<Fruit> searchByDescOrder() {
-        return fruitRepository.searchByDescOrder();
+    public List<Fruit> getByPriceDesc() {
+        return fruitRepository.getByPriceAsc();
     }
 }

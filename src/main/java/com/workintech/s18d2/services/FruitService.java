@@ -9,8 +9,9 @@ public interface FruitService {
 
     Fruit save(Fruit fruit);
     List<Fruit> findAll();
-    Fruit findById(long id);
+    Fruit getById(long id);
     List<Fruit> searchByName(String name);
-    List<Fruit> searchByDescOrder();
-    List<Fruit> searchByAscOrder();
+    List<Fruit> getByPriceDesc();
+    List<Fruit> getByPriceAsc();
+    Fruit delete(long id);
 }

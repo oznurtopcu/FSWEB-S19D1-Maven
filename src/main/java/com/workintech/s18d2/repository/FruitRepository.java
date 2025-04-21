@@ -16,8 +16,8 @@ public interface FruitRepository extends JpaRepository<Fruit, Long> {
     List<Fruit> searchByName(String name);
 
     @Query("SELECT f FROM Fruit f ORDER BY f.price DESC")
-    List<Fruit> searchByDescOrder();
+    List<Fruit> getByPriceDesc();
 
     @Query("SELECT f FROM Fruit f ORDER BY f.price")
-    List<Fruit> searchByAscOrder();
+    List<Fruit> getByPriceAsc();
 }

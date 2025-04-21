@@ -1,8 +1,10 @@
 package com.workintech.s18d2.services;
 
 import com.workintech.s18d2.entity.Vegetable;
+import com.workintech.s18d2.exceptions.PlantException;
 import com.workintech.s18d2.repository.VegetableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,14 +29,13 @@ public class VegetableServiceImpl implements VegetableService{
     }
 
     @Override
-    public Vegetable findById(long id) {
+    public Vegetable getById(long id) {
         Optional<Vegetable> optionalVegetable = vegetableRepository.findById(id);
         //return optionalVegetable.orElse(null);
         if(optionalVegetable.isPresent()) {
             return optionalVegetable.get();
         }
-        //throw new Vegetable Exception
-        return null;
+        throw new PlantException("Bu ID ile eşleşen kayıt bulunamadı!", HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -43,12 +44,17 @@ public class VegetableServiceImpl implements VegetableService{
     }
 
     @Override
-    public List<Vegetable> searchByDescOrder() {
-        return vegetableRepository.searchByDescOrder();
+    public List<Vegetable> getByPriceDesc() {
+        return vegetableRepository.getByPriceDesc();
     }
 
     @Override
-    public List<Vegetable> searchByAscOrder() {
-        return vegetableRepository.searchByAscOrder();
+    public void deleteById(long id) {
+        vegetableRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Vegetable> getByPriceAsc() {
+        return vegetableRepository.getByPriceAsc();
     }
 }

@@ -8,9 +8,10 @@ public interface VegetableService {
 
     Vegetable save(Vegetable vegetable);
     List<Vegetable> findAll();
-    Vegetable findById(long id);
+    Vegetable getById(long id);
     List<Vegetable> searchByName(String name);
-    List<Vegetable> searchByDescOrder();
-    List<Vegetable> searchByAscOrder();
+    List<Vegetable> getByPriceDesc();
+    List<Vegetable> getByPriceAsc();
+    void deleteById(long id);
 }
 

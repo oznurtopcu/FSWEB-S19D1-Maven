@@ -16,8 +16,8 @@ public interface VegetableRepository extends JpaRepository<Vegetable, Long> {
     List<Vegetable> searchByName(String name);
 
     @Query("SELECT v FROM Vegetable v ORDER BY v.price DESC")
-    List<Vegetable> searchByDescOrder();
+    List<Vegetable> getByPriceDesc();
 
     @Query("SELECT v FROM Vegetable v ORDER BY v.price")
-    List<Vegetable> searchByAscOrder();
+    List<Vegetable> getByPriceAsc();
 }
